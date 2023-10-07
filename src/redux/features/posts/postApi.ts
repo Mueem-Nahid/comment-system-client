@@ -26,7 +26,7 @@ const postApi = api.injectEndpoints({
 
             return `/posts?${queryParams.toString()}`;
          },
-         providesTags: ['login', 'newPost']
+         providesTags: ['login', 'newPost', 'fetchAfterDelete']
       }),
       singlePost: builder.query({
          query: (id: string) => `/posts/${id}`,
@@ -52,6 +52,7 @@ const postApi = api.injectEndpoints({
             url: `/posts/${id}`,
             method: 'DELETE',
          }),
+         invalidatesTags: ['fetchAfterDelete'],
       }),
       postComment: builder.mutation({
          query: ({postId, comment}) => ({

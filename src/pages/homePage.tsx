@@ -5,7 +5,7 @@ import {Post} from "../components/Post.tsx";
 
 function HomePage() {
    const {data, isLoading} = useGetPostsQuery(null)
-   console.log(data)
+
    return (
       <Container size="xs" px="xs" pt="30px">
          <PostInput/>
