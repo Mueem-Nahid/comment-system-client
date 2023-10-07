@@ -26,7 +26,7 @@ const postApi = api.injectEndpoints({
 
             return `/posts?${queryParams.toString()}`;
          },
-         providesTags: ['login']
+         providesTags: ['login', 'newPost']
       }),
       singlePost: builder.query({
          query: (id: string) => `/posts/${id}`,
@@ -38,6 +38,7 @@ const postApi = api.injectEndpoints({
             method: 'POST',
             body: payload
          }),
+         invalidatesTags: ['newPost'],
       }),
       updatePost: builder.mutation({
          query: ({id, updatedData}) => ({
