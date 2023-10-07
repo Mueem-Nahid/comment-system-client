@@ -2,8 +2,8 @@ import {api} from "../../api/apiSlice.ts";
 
 interface IGetAllPostParams {
    searchTerm?: string;
-   publicationDate?: string;
-   genre?: string;
+   sortBy?:string;
+   sortOrder?:string
 }
 
 const postApi = api.injectEndpoints({
@@ -15,13 +15,9 @@ const postApi = api.injectEndpoints({
             if (params?.searchTerm) {
                queryParams.append('searchTerm', params.searchTerm);
             }
-            if (params?.publicationDate) {
-               queryParams.delete('publicationDate');
-               queryParams.append('publicationDate', params.publicationDate);
-            }
-            if (params?.genre) {
-               queryParams.delete('genre');
-               queryParams.append('genre', params.genre);
+            if (params?.sortBy) {
+               queryParams.delete('sortBy');
+               queryParams.append('sortBy', params.sortBy);
             }
 
             return `/posts?${queryParams.toString()}`;

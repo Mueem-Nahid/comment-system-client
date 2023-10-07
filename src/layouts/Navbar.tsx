@@ -98,9 +98,6 @@ export function Navbar() {
 
                <Group sx={{height: '100%'}} spacing={0} className={classes.hiddenMobile}>
                   <Link to='/' className={classes.link}>
-                     Home
-                  </Link>
-                  <Link to='/all-books' className={classes.link}>
                      Thoughts
                   </Link>
                </Group>
