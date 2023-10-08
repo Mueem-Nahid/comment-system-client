@@ -6,7 +6,7 @@
 
 - Clone the repository
 - Open the folder and create `.env` according to `.env.sample`
-- Open terminal and run `npm run dev`
+- Open terminal and run `npm i` and then `npm run dev`
 
 ## Backend server
 
