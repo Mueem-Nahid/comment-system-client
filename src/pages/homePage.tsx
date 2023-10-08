@@ -8,17 +8,24 @@ import {IconChevronDown} from "@tabler/icons-react";
 function HomePage() {
    const [filteringFields, setFilteringFields] = useState({
       sortBy: '',
-      sortOrder: ''
+      sortOrder: 'desc'
    })
    const {data, isLoading} = useGetPostsQuery(
       {
-         sortOrder: filteringFields.sortOrder,
-         sortBy: filteringFields.sortBy
+         sortBy: filteringFields.sortBy,
+         sortOrder: filteringFields.sortOrder
       },
       {
          refetchOnMountOrArgChange: true
       }
-   )
+   );
+
+   const handleFiltering = (value: string) => {
+      setFilteringFields({
+         ...filteringFields,
+         sortBy: value,
+      });
+   }
 
    return (
       <Container size="xs" px="xs" pt="30px">
@@ -28,14 +35,25 @@ function HomePage() {
             <Select
                radius="xl"
                placeholder="Pick one"
-               rightSection={<IconChevronDown size="1rem" />}
+               rightSection={<IconChevronDown size="1rem"/>}
                rightSectionWidth={30}
-               styles={{ rightSection: { pointerEvents: 'none' } }}
-               data={['Most liked', 'Most disliked']}
+               styles={{rightSection: {pointerEvents: 'none'}}}
+               data={[
+                  {
+                     value: 'totalLikes', label: 'Most liked'
+                  },
+                  {
+                     value: 'totalDislikes', label: 'Most disliked'
+                  },
+                  {
+                     value: 'createdAt', label: 'Newest'
+                  }
+               ]}
+               onChange={(value: string) => handleFiltering(value)}
             />
          </Flex>
          {
-            data?.data?.length && data?.data.map((post)=> (
+            data?.data?.length && data?.data.map((post) => (
                <Post key={post._id} post={post}/>
             ))
          }
@@ -53,7 +71,7 @@ function HomePage() {
             data?.data?.length &&
              <Flex my={25} justify="space-between">
                  <div></div>
-                 <Pagination total={3} />
+                 <Pagination total={3}/>
              </Flex>
          }
       </Container>
