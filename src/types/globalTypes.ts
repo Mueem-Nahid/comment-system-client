@@ -6,7 +6,7 @@ export interface IUserInfo {
 
 export interface IUser {
    userInfo: IUserInfo | null;
-   accessToken: string | null
+   accessToken: string | null;
 }
 
 export interface IComment {

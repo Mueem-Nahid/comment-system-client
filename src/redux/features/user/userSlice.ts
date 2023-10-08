@@ -1,9 +1,9 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IUser} from "../../../types/globalTypes.ts";
 
-const initialState: IUser = {
+export const initialState: IUser = {
    userInfo: null,
-   accessToken: null
+   accessToken: null,
 }
 
 const userSlice = createSlice({
@@ -12,19 +12,19 @@ const userSlice = createSlice({
    reducers: {
       setCredentials: (state, action: PayloadAction<IUser>) => {
          state.userInfo = action.payload.userInfo;
-         state.accessToken = action.payload.accessToken
+         state.accessToken = action.payload.accessToken;
       },
       logOutUser: (state) => {
          state.userInfo = null
          state.accessToken = null
          localStorage.removeItem('user');
-      }
+      },
    }
 })
 
 export const {
    setCredentials,
-   logOutUser
+   logOutUser,
 } = userSlice.actions
 
 export default userSlice.reducer

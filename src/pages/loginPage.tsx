@@ -1,9 +1,15 @@
 import {Login} from "../components/Login.tsx";
-
+import {useAppSelector} from "../redux/hook.ts";
 
 function LoginPage() {
+   const {userInfo} = useAppSelector(state => state.user);
+
    return (
-      <Login/>
+      <>
+         {
+            !userInfo?.email ? <Login/> : window.location.replace('/')
+         }
+      </>
    );
 }
 

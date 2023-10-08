@@ -147,9 +147,9 @@ export function Navbar() {
          <Drawer
             opened={drawerOpened}
             onClose={closeDrawer}
-            size="100%"
+            size="95%"
             padding="md"
-            title="Book Self"
+            title="My Thoughts"
             className={classes.hiddenDesktop}
             zIndex={1000000}
          >
