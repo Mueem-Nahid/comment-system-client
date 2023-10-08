@@ -3,7 +3,9 @@ import {api} from "../../api/apiSlice.ts";
 interface IGetAllPostParams {
    searchTerm?: string;
    sortBy?:string;
-   sortOrder?:string
+   sortOrder?:string;
+   limit?:string;
+   page?:string
 }
 
 const postApi = api.injectEndpoints({
@@ -18,6 +20,14 @@ const postApi = api.injectEndpoints({
             if (params?.sortBy) {
                queryParams.delete('sortBy');
                queryParams.append('sortBy', params.sortBy);
+            }
+            if (params?.limit) {
+               queryParams.delete('limit');
+               queryParams.append('limit', params.limit);
+            }
+            if (params?.page) {
+               queryParams.delete('page');
+               queryParams.append('page', params.page);
             }
 
             return `/posts?${queryParams.toString()}`;

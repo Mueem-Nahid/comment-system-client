@@ -8,23 +8,33 @@ import {IconChevronDown} from "@tabler/icons-react";
 function HomePage() {
    const [filteringFields, setFilteringFields] = useState({
       sortBy: '',
-      sortOrder: 'desc'
+      sortOrder: 'desc',
+      limit: '5',
+      page: '1'
    })
    const {data, isLoading} = useGetPostsQuery(
       {
          sortBy: filteringFields.sortBy,
-         sortOrder: filteringFields.sortOrder
+         sortOrder: filteringFields.sortOrder,
+         limit: filteringFields.limit,
+         page: filteringFields.page
       },
       {
          refetchOnMountOrArgChange: true
       }
    );
 
-   const handleFiltering = (value: string) => {
-      setFilteringFields({
-         ...filteringFields,
-         sortBy: value,
-      });
+   const handleFiltering = (name: string, value: string) => {
+      if (name === 'limit') {
+         setFilteringFields((prevFields) => ({
+            ...prevFields,
+            page: '1'
+         }));
+      }
+      setFilteringFields((prevFields) => ({
+         ...prevFields,
+         [name]: value
+      }));
    }
 
    return (
@@ -49,7 +59,7 @@ function HomePage() {
                      value: 'createdAt', label: 'Newest'
                   }
                ]}
-               onChange={(value: string) => handleFiltering(value)}
+               onChange={(value: string) => handleFiltering('sortBy', value)}
             />
          </Flex>
          {
@@ -70,8 +80,28 @@ function HomePage() {
          {
             data?.data?.length &&
              <Flex my={25} justify="space-between">
-                 <div></div>
-                 <Pagination total={3}/>
+                 <Select
+                     placeholder="Limit"
+                     rightSection={<IconChevronDown size="1rem"/>}
+                     rightSectionWidth={30}
+                     styles={{rightSection: {pointerEvents: 'none'}}}
+                     value={filteringFields.limit}
+                     data={[
+                        {
+                           value: '2', label: '2'
+                        },
+                        {
+                           value: '5', label: '5'
+                        },
+                        {
+                           value: '10', label: '10'
+                        }
+                     ]}
+                     onChange={(value: string) => handleFiltering("limit", value)}
+                 />
+                 <Pagination value={Number(filteringFields.page)}
+                             onChange={(value) => handleFiltering("page", value.toString())}
+                             total={Math.ceil(data?.meta?.total / data?.meta?.limit)}/>
              </Flex>
          }
       </Container>
