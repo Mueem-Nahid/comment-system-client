@@ -26,24 +26,6 @@ const routes = createBrowserRouter([
                   <PostDetailsPage/>
                </PrivateRoute>,
          },
-         /*{
-            path: '/all-books',
-            element: <AllBook/>,
-         },
-         {
-            path: '/edit-book/:id',
-            element:
-               <PrivateRoute>
-                  <EditBookPage/>
-               </PrivateRoute>,
-         },
-         {
-            path: '/my-wishlist',
-            element:
-               <PrivateRoute>
-                  <MyWishListPage/>
-               </PrivateRoute>,
-         },*/
          {
             path: '/login',
             element: <LoginPage/>,
