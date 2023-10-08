@@ -2,11 +2,15 @@ import {useGetPostsQuery} from "../redux/features/posts/postApi.ts";
 import {Center, Container, Flex, Loader, Pagination, Select} from "@mantine/core";
 import {PostInput} from "../components/PostInput.tsx";
 import {Post} from "../components/Post.tsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {IconChevronDown} from "@tabler/icons-react";
 import {IPost} from "../types/globalTypes.ts";
+import {io} from "socket.io-client";
 
 function HomePage() {
+   const socketUrl = import.meta.env.VITE_APP_SOCKET_URL;
+   const [newPost, setNewPost] = useState({
+   });
    const [filteringFields, setFilteringFields] = useState({
       sortBy: '',
       sortOrder: 'desc',
@@ -36,7 +40,20 @@ function HomePage() {
          ...prevFields,
          [name]: value
       }));
-   }
+   };
+
+   useEffect(() => {
+      const socket = io(socketUrl);
+      socket.on('newPost', (newPost: IPost) => {
+         setNewPost(newPost);
+      });
+
+      return () => {
+         // Clean up the WebSocket connection
+         socket.disconnect();
+      };
+   }, [newPost]);
+   console.log(socketUrl, "socketUrl")
 
    return (
       <Container size="xs" px="xs" pt="30px">
@@ -63,6 +80,11 @@ function HomePage() {
                onChange={(value: string) => handleFiltering('sortBy', value)}
             />
          </Flex>
+         {
+            Object.keys(newPost).length !== 0 &&
+            // @ts-ignore
+             <Post key={newPost._id} post={newPost}/>
+         }
          {
             data?.data?.length ? data?.data.map((post: IPost) => (
                <Post key={post._id} post={post}/>

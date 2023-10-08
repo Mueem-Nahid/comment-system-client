@@ -64,7 +64,7 @@ export function Post({post}: IProps) {
          <Flex justify="space-between">
             <Group>
                <Avatar alt={post?.user.name} color="cyan"
-                       radius="xl">{post?.user.name.substring(0, 1)}</Avatar>
+                       radius="xl">{post?.user.name?.substring(0, 1)}</Avatar>
                <div>
                   <Text fz="sm">{post?.user.name}</Text>
                   <Text fz="xs" c="dimmed">
