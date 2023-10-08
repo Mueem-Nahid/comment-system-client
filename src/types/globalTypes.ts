@@ -9,13 +9,13 @@ export interface IUser {
    accessToken: string | null
 }
 
-export interface IReview {
+export interface IComment {
    _id: string;
-   reviewedBy: {
+   commentedBy: {
       _id: string;
       name: string;
    };
-   review: string;
+   comment: string;
    createdAt: Date;
    updatedAt: string;
 }

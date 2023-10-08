@@ -5,6 +5,7 @@ import LoginPage from "../pages/loginPage.tsx";
 import SignupPage from "../pages/signupPage.tsx";
 import HomePage from "../pages/homePage.tsx";
 import PrivateRoute from "./PrivateRoute.tsx";
+import PostDetailsPage from "../pages/postDetailsPage.tsx";
 
 const routes = createBrowserRouter([
    {
@@ -18,20 +19,16 @@ const routes = createBrowserRouter([
                   <HomePage/>
                </PrivateRoute>
          },
+         {
+            path: '/post/:id',
+            element:
+               <PrivateRoute>
+                  <PostDetailsPage/>
+               </PrivateRoute>,
+         },
          /*{
             path: '/all-books',
             element: <AllBook/>,
-         },
-         {
-            path: '/book/:id',
-            element: <BookDetailsPage/>,
-         },
-         {
-            path: '/add-book',
-            element:
-               <PrivateRoute>
-                  <AddBookPage/>
-               </PrivateRoute>,
          },
          {
             path: '/edit-book/:id',

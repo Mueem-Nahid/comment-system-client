@@ -17,6 +17,7 @@ import {useAppSelector} from "../redux/hook.ts";
 import {useState} from "react";
 import DeleteConfirmationModal from "./DeleteConfirmationModal.tsx";
 import {useReactToPostMutation} from "../redux/features/posts/postApi.ts";
+import {Link} from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
    comment: {
@@ -112,7 +113,9 @@ export function Post({post}) {
                   <Text size='sm'>{post.totalDislikes}</Text>
                </Flex>
             </Flex>
-            <Text size='sm' style={{cursor: 'pointer'}}>Comment</Text>
+            <Link to={`/post/${post?._id}`} style={{textDecoration:"none"}}>
+               <Text color='black' size='sm' style={{cursor: 'pointer'}}>Comment</Text>
+            </Link>
          </Flex>
       </Paper>
    );
