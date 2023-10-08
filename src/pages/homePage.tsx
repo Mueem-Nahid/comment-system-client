@@ -4,6 +4,7 @@ import {PostInput} from "../components/PostInput.tsx";
 import {Post} from "../components/Post.tsx";
 import {useState} from "react";
 import {IconChevronDown} from "@tabler/icons-react";
+import {IPost} from "../types/globalTypes.ts";
 
 function HomePage() {
    const [filteringFields, setFilteringFields] = useState({
@@ -63,7 +64,7 @@ function HomePage() {
             />
          </Flex>
          {
-            data?.data?.length && data?.data.map((post) => (
+            data?.data?.length && data?.data.map((post:IPost) => (
                <Post key={post._id} post={post}/>
             ))
          }

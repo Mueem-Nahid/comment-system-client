@@ -12,7 +12,8 @@ import {
 } from '@mantine/core';
 import {formatDate} from "../utils/utils.ts";
 import Comments from "./Comments.tsx";
-import {IconThumbDown, IconThumbDownFilled, IconThumbUp, IconThumbUpFilled} from "@tabler/icons-react";
+import {IconThumbDown, IconThumbUp} from "@tabler/icons-react";
+import {IPost} from "../types/globalTypes.ts";
 
 const useStyles = createStyles((theme) => ({
    comment: {
@@ -32,9 +33,13 @@ const useStyles = createStyles((theme) => ({
    },
 }));
 
-function PostDetails({post}) {
-   console.log(post)
+interface IProps {
+   post: IPost
+}
+
+function PostDetails({post}:IProps) {
    const {classes} = useStyles();
+
    return (
       <>
          <Paper withBorder radius="md" className={classes.comment}>
@@ -72,4 +77,4 @@ function PostDetails({post}) {
    )
 }
 
-export default PostDetails
+export default PostDetails;

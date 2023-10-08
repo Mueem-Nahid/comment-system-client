@@ -19,3 +19,34 @@ export interface IComment {
    createdAt: Date;
    updatedAt: string;
 }
+
+export interface IPostedBy {
+   _id: string;
+   email: string;
+   name: string;
+   createdAt: Date;
+   updatedAt: Date;
+}
+
+export interface ILikes {
+   user:string;
+   _id:string
+}
+
+export interface IDislikes {
+   user:string;
+   _id:string
+}
+
+export interface IPost {
+   _id:string;
+   post:string;
+   totalLikes: number;
+   totalDislikes:number;
+   user: IPostedBy;
+   likes:ILikes[];
+   dislikes: IDislikes[];
+   createdAt: Date;
+   updatedAt:Date;
+   comments: IComment[]
+}

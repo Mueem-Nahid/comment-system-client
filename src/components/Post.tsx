@@ -18,6 +18,7 @@ import {useState} from "react";
 import DeleteConfirmationModal from "./DeleteConfirmationModal.tsx";
 import {useReactToPostMutation} from "../redux/features/posts/postApi.ts";
 import {Link} from "react-router-dom";
+import {IPost} from "../types/globalTypes.ts";
 
 const useStyles = createStyles((theme) => ({
    comment: {
@@ -37,11 +38,15 @@ const useStyles = createStyles((theme) => ({
    },
 }));
 
-export function Post({post}) {
+interface IProps {
+   post: IPost
+}
+
+export function Post({post}: IProps) {
    const {classes} = useStyles();
    const {userInfo} = useAppSelector(state => state.user);
    const [showModal, setShowModal] = useState(false);
-   const [addReact, {isError, error, isLoading}] = useReactToPostMutation()
+   const [addReact] = useReactToPostMutation();
 
    const handleReact = async (isLiked: boolean) => {
       try {
@@ -113,7 +118,7 @@ export function Post({post}) {
                   <Text size='sm'>{post.totalDislikes}</Text>
                </Flex>
             </Flex>
-            <Link to={`/post/${post?._id}`} style={{textDecoration:"none"}}>
+            <Link to={`/post/${post?._id}`} style={{textDecoration: "none"}}>
                <Text color='black' size='sm' style={{cursor: 'pointer'}}>Comment</Text>
             </Link>
          </Flex>

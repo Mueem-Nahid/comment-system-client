@@ -7,7 +7,7 @@ import PostDetails from "../components/PostDetails.tsx";
 function BookDetailsPage() {
    const {id} = useParams();
    const {data, isLoading} = useSinglePostQuery(id!)
-   console.log(data)
+
    return (
       <Container size="xs" px="xs" pt="30px">
          {
