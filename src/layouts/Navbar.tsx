@@ -120,16 +120,6 @@ export function Navbar() {
 
                               <Menu.Dropdown>
                                  <Menu.Item fw='normal'>
-                                    <Link to='/add-book' className={classes.subLink}>
-                                       Add book
-                                    </Link>
-                                 </Menu.Item>
-                                 <Menu.Item fw='normal'>
-                                    <Link to='/my-wishlist' className={classes.subLink}>
-                                       My wishlist
-                                    </Link>
-                                 </Menu.Item>
-                                 <Menu.Item fw='normal'>
                                     <Link to='' onClick={handleLogout} className={classes.subLink}>
                                        Log out
                                     </Link>
@@ -166,10 +156,7 @@ export function Navbar() {
             <ScrollArea h={`calc(100vh - ${rem(60)})`} mx="-md">
                <Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'}/>
                <Link to='/' className={classes.link}>
-                  Home
-               </Link>
-               <Link to='/all-books' className={classes.link}>
-                  All Books
+                  Thoughts
                </Link>
                <Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'}/>
                <Group position="center" grow pb="xl" px="md">
