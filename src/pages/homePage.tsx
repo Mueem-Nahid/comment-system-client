@@ -43,17 +43,18 @@ function HomePage() {
    };
 
    useEffect(() => {
-      const socket = io(socketUrl);
-      socket.on('newPost', (newPost: IPost) => {
-         setNewPost(newPost);
-      });
+      if(import.meta.env.VITE_APP_ENV !== 'production') {
+         const socket = io(socketUrl);
+         socket.on('newPost', (newPost: IPost) => {
+            setNewPost(newPost);
+         });
 
-      return () => {
-         // Clean up the WebSocket connection
-         socket.disconnect();
-      };
+         return () => {
+            // Clean up the WebSocket connection
+            socket.disconnect();
+         };
+      }
    }, [newPost]);
-   console.log(socketUrl, "socketUrl")
 
    return (
       <Container size="xs" px="xs" pt="30px">
