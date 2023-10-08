@@ -64,9 +64,9 @@ function HomePage() {
             />
          </Flex>
          {
-            data?.data?.length && data?.data.map((post:IPost) => (
+            data?.data?.length ? data?.data.map((post: IPost) => (
                <Post key={post._id} post={post}/>
-            ))
+            )) : ""
          }
          {
             isLoading &&
@@ -76,12 +76,12 @@ function HomePage() {
          }
          {
             !isLoading && !data?.data.length &&
-             <Center>No thoughts found...</Center>
+             <Center py="70px">No thoughts found...</Center>
          }
          {
-            data?.data?.length &&
-             <Flex my={25} justify="space-between">
-                 <Select
+            data?.data?.length ?
+               <Flex my={25} justify="space-between">
+                  <Select
                      placeholder="Limit"
                      rightSection={<IconChevronDown size="1rem"/>}
                      rightSectionWidth={30}
@@ -99,11 +99,12 @@ function HomePage() {
                         }
                      ]}
                      onChange={(value: string) => handleFiltering("limit", value)}
-                 />
-                 <Pagination value={Number(filteringFields.page)}
-                             onChange={(value) => handleFiltering("page", value.toString())}
-                             total={Math.ceil(data?.meta?.total / data?.meta?.limit)}/>
-             </Flex>
+                  />
+                  <Pagination value={Number(filteringFields.page)}
+                              onChange={(value) => handleFiltering("page", value.toString())}
+                              total={Math.ceil(data?.meta?.total / data?.meta?.limit)}/>
+               </Flex>
+               : ""
          }
       </Container>
    );
