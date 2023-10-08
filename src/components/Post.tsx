@@ -12,7 +12,7 @@ import {
    TypographyStylesProvider
 } from '@mantine/core';
 import {formatDate} from "../utils/utils.ts";
-import {IconThumbDown, IconThumbUp, IconTrash} from "@tabler/icons-react";
+import {IconThumbDown, IconThumbDownFilled, IconThumbUp, IconThumbUpFilled, IconTrash} from "@tabler/icons-react";
 import {useAppSelector} from "../redux/hook.ts";
 import {useState} from "react";
 import DeleteConfirmationModal from "./DeleteConfirmationModal.tsx";
@@ -47,8 +47,7 @@ export function Post({post}) {
          const payload = {
             isLiked
          }
-         const data = await addReact({postId: post._id, payload})
-         console.log(data)
+         await addReact({postId: post._id, payload})
       } catch (e) {
          console.log(e)
       }
@@ -95,11 +94,21 @@ export function Post({post}) {
          <Flex justify='space-between' mx={10}>
             <Flex gap={15}>
                <Flex justify='center' align='center' gap={1}>
-                  <IconThumbUp cursor='pointer' size={18} color='blue' onClick={() => handleReact(true)}/>
+                  {
+                     post.likes.some((like) => like.user === userInfo!.id) ?
+                        <IconThumbUpFilled cursor='pointer' size={18} style={{color: 'blue'}}
+                                           onClick={() => handleReact(true)}/> :
+                        <IconThumbUp cursor='pointer' size={18} color='blue' onClick={() => handleReact(true)}/>
+                  }
                   <Text size='sm'>{post.totalLikes}</Text>
                </Flex>
                <Flex justify='center' align='center' gap={1}>
-                  <IconThumbDown cursor='pointer' size={18} color='blue' onClick={() => handleReact(false)}/>
+                  {
+                     post.dislikes.some((like) => like.user === userInfo!.id) ?
+                        <IconThumbDownFilled cursor='pointer' size={18} style={{color: 'blue'}}
+                                             onClick={() => handleReact(false)}/> :
+                        <IconThumbDown cursor='pointer' size={18} color='blue' onClick={() => handleReact(false)}/>
+                  }
                   <Text size='sm'>{post.totalDislikes}</Text>
                </Flex>
             </Flex>
