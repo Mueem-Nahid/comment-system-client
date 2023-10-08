@@ -32,7 +32,7 @@ const postApi = api.injectEndpoints({
 
             return `/posts?${queryParams.toString()}`;
          },
-         providesTags: ['login', 'newPost', 'fetchAfterDelete']
+         providesTags: ['login', 'newPost', 'fetchAfterDelete', 'fetchAfterReact']
       }),
       singlePost: builder.query({
          query: (id: string) => `/posts/${id}`,
@@ -67,6 +67,14 @@ const postApi = api.injectEndpoints({
             body: comment
          }),
          invalidatesTags: ['comments'],
+      }),
+      reactToPost: builder.mutation({
+         query:({postId, payload})=> ({
+            url: `/posts/${postId}/reaction`,
+            method: 'POST',
+            body: payload
+         }),
+         invalidatesTags: ['fetchAfterReact'],
       })
    })
 })
@@ -77,5 +85,6 @@ export const {
    useAddPostMutation,
    usePostCommentMutation,
    useUpdatePostMutation,
-   useDeletePostMutation
+   useDeletePostMutation,
+   useReactToPostMutation
 } = postApi;

@@ -1,20 +1,22 @@
 import {
-   Text,
+   ActionIcon,
    Avatar,
-   Group,
-   TypographyStylesProvider,
-   Paper,
    createStyles,
-   rem,
    Divider,
    Flex,
-   ActionIcon, Tooltip
+   Group,
+   Paper,
+   rem,
+   Text,
+   Tooltip,
+   TypographyStylesProvider
 } from '@mantine/core';
 import {formatDate} from "../utils/utils.ts";
 import {IconThumbDown, IconThumbUp, IconTrash} from "@tabler/icons-react";
 import {useAppSelector} from "../redux/hook.ts";
 import {useState} from "react";
 import DeleteConfirmationModal from "./DeleteConfirmationModal.tsx";
+import {useReactToPostMutation} from "../redux/features/posts/postApi.ts";
 
 const useStyles = createStyles((theme) => ({
    comment: {
@@ -38,6 +40,19 @@ export function Post({post}) {
    const {classes} = useStyles();
    const {userInfo} = useAppSelector(state => state.user);
    const [showModal, setShowModal] = useState(false);
+   const [addReact, {isError, error, isLoading}] = useReactToPostMutation()
+
+   const handleReact = async (isLiked: boolean) => {
+      try {
+         const payload = {
+            isLiked
+         }
+         const data = await addReact({postId: post._id, payload})
+         console.log(data)
+      } catch (e) {
+         console.log(e)
+      }
+   }
 
    return (
       <Paper withBorder radius="md" my={25} className={classes.comment}>
@@ -76,19 +91,19 @@ export function Post({post}) {
          <TypographyStylesProvider className={classes.body}>
             {post?.post}
          </TypographyStylesProvider>
-         <Divider my="xs" />
+         <Divider my="xs"/>
          <Flex justify='space-between' mx={10}>
             <Flex gap={15}>
                <Flex justify='center' align='center' gap={1}>
-                  <IconThumbUp cursor='pointer' size={18} color='blue'/>
+                  <IconThumbUp cursor='pointer' size={18} color='blue' onClick={() => handleReact(true)}/>
                   <Text size='sm'>{post.totalLikes}</Text>
                </Flex>
                <Flex justify='center' align='center' gap={1}>
-                  <IconThumbDown cursor='pointer' size={18} color='blue'/>
+                  <IconThumbDown cursor='pointer' size={18} color='blue' onClick={() => handleReact(false)}/>
                   <Text size='sm'>{post.totalDislikes}</Text>
                </Flex>
             </Flex>
-            <Text size='sm' style={{cursor:'pointer'}}>Comment</Text>
+            <Text size='sm' style={{cursor: 'pointer'}}>Comment</Text>
          </Flex>
       </Paper>
    );
