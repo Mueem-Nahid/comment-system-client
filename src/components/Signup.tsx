@@ -1,4 +1,15 @@
-import {Anchor, Button, Container, Notification, Paper, PasswordInput, Text, TextInput, Title,} from '@mantine/core';
+import {
+   Anchor,
+   Button,
+   Container,
+   Loader,
+   Notification,
+   Paper,
+   PasswordInput,
+   Text,
+   TextInput,
+   Title,
+} from '@mantine/core';
 import {Link} from "react-router-dom";
 import {useForm} from "@mantine/form";
 import {useSignupUserMutation} from "../redux/features/user/userApi.ts";
@@ -12,7 +23,7 @@ interface SignupFormInputs {
 
 export function Signup() {
    const [successMessage, setSuccessMessage] = useState('')
-   const [signupUser, {isError, error, isSuccess}] = useSignupUserMutation()
+   const [signupUser, {isError, error, isSuccess, isLoading}] = useSignupUserMutation()
 
    const form = useForm({
       initialValues: {
@@ -71,8 +82,10 @@ export function Signup() {
                <TextInput {...form.getInputProps('email')} label="Email" placeholder="you@mantine.dev" required/>
                <PasswordInput {...form.getInputProps('password')} label="Password"
                               placeholder="Your password. At least 5 character" required mt="md"/>
-               <Button type="submit" fullWidth mt="xl">
-                  Sign up
+               <Button type="submit" fullWidth mt="xl" disabled={isLoading}>
+                  {
+                     isLoading ? <Loader size="sm" /> :   "Sign up"
+                  }
                </Button>
             </form>
             {

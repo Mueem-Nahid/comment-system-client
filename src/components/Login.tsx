@@ -1,4 +1,15 @@
-import {Anchor, Button, Container, Notification, Paper, PasswordInput, Text, TextInput, Title,} from '@mantine/core';
+import {
+   Anchor,
+   Button,
+   Container,
+   Loader,
+   Notification,
+   Paper,
+   PasswordInput,
+   Text,
+   TextInput,
+   Title,
+} from '@mantine/core';
 import {useForm} from "@mantine/form";
 import {useEffect} from "react";
 import {Link, useLocation, useNavigate} from "react-router-dom";
@@ -17,7 +28,7 @@ export function Login() {
    const navigate = useNavigate();
    const location = useLocation();
    const dispatch = useAppDispatch()
-   const [loginUser, {isError, error, isSuccess}] = useLoginUserMutation()
+   const [loginUser, {isError, error, isSuccess, isLoading}] = useLoginUserMutation()
 
    const form = useForm({
       initialValues: {
@@ -75,8 +86,10 @@ export function Login() {
                <TextInput {...form.getInputProps('email')} label="Email" placeholder="you@gmail.com" required/>
                <PasswordInput {...form.getInputProps('password')} label="Password" placeholder="Your password" required
                               mt="md"/>
-               <Button type="submit" fullWidth mt="xl">
-                  Sign in
+               <Button type="submit" fullWidth mt="xl" disabled={isLoading}>
+                  {
+                     isLoading ? <Loader size="sm" /> :   "Sign in"
+                  }
                </Button>
             </form>
             {
