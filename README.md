@@ -11,3 +11,11 @@
 ## Backend server
 
 - https://github.com/Mueem-Nahid/comment-system-server
+
+## Technology
+- TypeScript
+- React Js
+- Mantine UI
+- Redux Tookit 
+- RTK query
+- Socket IO
